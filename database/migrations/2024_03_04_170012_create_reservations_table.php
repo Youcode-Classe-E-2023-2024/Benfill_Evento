@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('user_id');
             $table->enum('status', ['confirmed', 'canceled', 'unconfirmed']);
-            $table->foreign('event_id')->references('id')->on('Events');
+            $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
