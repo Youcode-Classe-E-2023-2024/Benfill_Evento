@@ -19,7 +19,8 @@ class Event extends Model
         'price',
         'organizer',
         'status',
-        'date'
+        'date',
+        'slug'
     ];
 
     function user() {
