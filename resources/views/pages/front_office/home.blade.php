@@ -1,3 +1,8 @@
-<div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
+@extends('layouts.main')
+
+@section('content')
+    <x-home.categories/>
+    <x-home.gallery/>
+    <x-home.card :events="$events"/>
+
+@endsection
