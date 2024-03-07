@@ -35,9 +35,10 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        $imagePath = $request->file('picture')->store('/profiles/profiles', 'public');
         $user = User::create([
             'name' => $request->name,
+            'picture' => $imagePath,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
