@@ -14,10 +14,18 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-
+            'Concerts & Festivals',
+            'Théâtre & Humour',
+            'Formations',
+            'Salons et congrès',
+            'Famille & Loisirs',
+            'Sport',
+            'Cinéma',
+            'Voyage',
+            'Saint-Valentin'
         ];
 
-        foreach($categories as $category) {
+        foreach ($categories as $category) {
             Category::create([
                 'category' => $category
             ]);
