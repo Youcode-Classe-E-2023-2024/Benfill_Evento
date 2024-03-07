@@ -17,15 +17,16 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('picture');
-            $table->string('event_location');
             $table->string('date');
-            $table->enum('status', ['available', 'unconfirmed', 'sold out']);
+            $table->enum('status', ['unconfirmed', 'published', 'sold out']);
             $table->integer('places');
             $table->float('price');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('organizer');
+            $table->unsignedBigInteger('location_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('organizer')->references('id')->on('users');
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
