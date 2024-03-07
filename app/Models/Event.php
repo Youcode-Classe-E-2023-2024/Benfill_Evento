@@ -13,11 +13,11 @@ class Event extends Model
         'title',
         'description',
         'picture',
-        'event_location',
+        'location_id',
         'category_id',
         'places',
         'price',
-        'organizer',
+        'user_id',
         'status',
         'date',
         'slug'
@@ -28,6 +28,10 @@ class Event extends Model
     }
     function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    function location() {
+        return $this->belongsTo(Location::class);
     }
 
     function reservation() {
