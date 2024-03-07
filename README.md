@@ -1,4 +1,4 @@
-# Event Management Platform (Laravel)
+# Event Management Platform
 
 ## Description
 
