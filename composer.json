@@ -29,7 +29,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/getPicUrl.php",
+            "app/Helpers/getPicUrl.php"
         ]
     },
     "autoload-dev": {
