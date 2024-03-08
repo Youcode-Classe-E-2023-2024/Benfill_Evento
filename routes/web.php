@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/events/{slug}', [EventController::class, 'show']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,7 +31,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/events/status/{id}', [EventController::class, 'changeStatus'])->name('events.status');
-    Route::get('/events/{slug}', [EventController::class, 'show']);
     Route::resource('events', EventController::class)->except(['show']);;
     Route::resource('reservations', ReservationController::class);
     Route::resource('tickets', TicketController::class);
