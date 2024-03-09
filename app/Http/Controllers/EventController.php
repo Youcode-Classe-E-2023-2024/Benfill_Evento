@@ -33,7 +33,7 @@ class EventController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'picture' => $imagePath,
-            'reservationCount' => 0,
+            'validation' => $request['validation'],
             'location_id' => $request['location'],
             'category_id' => $request['category'],
             'places' => $request['places'],
@@ -62,6 +62,7 @@ class EventController extends Controller
         $event->update([
             'title' => $request['title'],
             'description' => $request['description'],
+            'validation' => $request['Validation'],
             'picture' => $request['picture'],
             'event_location' => $request['location'],
             'category_id' => $request['category'],
