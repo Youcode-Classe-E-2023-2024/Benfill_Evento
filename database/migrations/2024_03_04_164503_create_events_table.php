@@ -20,11 +20,12 @@ return new class extends Migration
             $table->string('date');
             $table->enum('status', ['unconfirmed', 'published', 'sold out']);
             $table->integer('places');
-            $table->integer('reservationCount');
+            $table->integer('reservationCount')->default(0);
             $table->float('price');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('location_id');
             $table->unsignedBigInteger('user_id');
+            $table->enum('validation', ['auto', 'manuel']);
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('location_id')->references('id')->on('locations');
             $table->foreign('user_id')->references('id')->on('users');
