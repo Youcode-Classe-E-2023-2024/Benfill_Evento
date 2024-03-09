@@ -138,7 +138,7 @@ $(document).ready(function () {
                 let events = data.events;
                 if (events.length === 0) {
                     emptySection.classList.remove('hidden')
-                    cardsSection.innerHTML = "";
+                    cardsSection.innerHTML = homeCards;
                 } else {
                     events.forEach((event) => {
                         let pic = url + "storage/" + event.picture;
