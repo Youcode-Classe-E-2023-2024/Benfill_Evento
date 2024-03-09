@@ -42,7 +42,7 @@
                             id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                             data-dropdown-placement="bottom">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src="{{getPicUrl(getUser()->picture, 'pictures/profiles')}}"
+                        <img class="w-8 h-8 rounded-full" src="{{getPicUrl(getUser()->picture, '')}}"
                              alt="user photo"></button>
                     <!-- Dropdown menu -->
                     <div
@@ -63,6 +63,12 @@
                             <li>
                                 <a href="/myReservation"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</a>
+                            </li>
+                            <li>
+
+                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                   Settings
+                                </a>
                             </li>
                             <li>
 
