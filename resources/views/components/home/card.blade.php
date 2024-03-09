@@ -1,7 +1,6 @@
-<div>
+<div class="px-10">
     <div id="emptySection" class="my-6 hidden flex justify-center w-full text-center">
-        <p class="text-center">List is
-            Empty
+        <p class="text-center">No Results... See More!
         </p>
     </div>
     <div
