@@ -16,6 +16,7 @@ class Event extends Model
         'location_id',
         'category_id',
         'reservationCount',
+        'validation',
         'places',
         'price',
         'user_id',
