@@ -17,7 +17,7 @@ class EventController extends Controller
         $categories = Category::all();
         $locations = Location::all();
         $events = Event::with('category', 'user', 'location')->get();
-        $eventsRequest = Event::where('status', 'unconfirmed')->with('category', 'user', 'location')->get();
+        $eventsRequest = Event::where('status', 'unconfirmed')->get();
         return view('pages.back_office.events', compact('categories', 'locations', 'events', 'eventsRequest'));
     }
 
@@ -33,6 +33,7 @@ class EventController extends Controller
             'title' => $request['title'],
             'description' => $request['description'],
             'picture' => $imagePath,
+            'reservationCount' => 0,
             'location_id' => $request['location'],
             'category_id' => $request['category'],
             'places' => $request['places'],
@@ -47,8 +48,12 @@ class EventController extends Controller
     function show($slug)
     {
         $event = Event::where('slug', $slug)
-            ->get();
-        return view('pages.front_office.eventContent', compact('event'));
+            ->get()->first();
+        $events = Event::where('status', 'published')->paginate(0);
+        return view('pages.front_office.eventContent', [
+            'event' => $event,
+            'events' => $events
+        ]);
     }
 
     function update(Request $request, $id)
@@ -83,5 +88,14 @@ class EventController extends Controller
         $event = Event::find($id);
         $event->delete();
         return back();
+    }
+
+    function search($input)
+    {
+        $events = Event::where('title', 'LIKE', "%{$input}%")->where('status', 'published')
+            ->with('category', 'user', 'location')
+            ->get();
+
+        return response()->json(['events' => $events]);
     }
 }
