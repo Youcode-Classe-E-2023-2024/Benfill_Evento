@@ -26,7 +26,6 @@ function searchBy(input) {
             let events = data.events;
             if (events.length === 0) {
                 emptySection.classList.remove('hidden')
-                emptySection.innerHTML = ` <p class="text-center">No Results... See More!</p>`;
                 cardsSection.innerHTML = homeCards;
             } else {
                 events.forEach((event) => {
