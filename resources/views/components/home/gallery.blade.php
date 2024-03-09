@@ -1,25 +1,28 @@
 <div
-    class="w-full border-gray-200 border-b-4 mb-3"
+    class="w-full border-gray-200 border-b-4 py-3"
+    id="gallerySection"
     style="background-image: url('https://www.guichet.com/static/media/bg.5d471928ee32bd253533.png');
     background-size: 100%;
       background-repeat: no-repeat;
-    ">>
+    ">
     <div id="custom-controls-gallery"
          class="relative w-full"
          data-carousel="slide">
         <!-- Carousel wrapper -->
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-            <!-- Item 1 -->
-            <div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                     class="shadow-md absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                     alt="">
-            </div>
+            @foreach($gallery as $item)
+                <!-- Item 1 -->
+                <div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item="active">
+                    <img src="{{getPicUrl($item['picture'], '')}}"
+                         class="shadow-md absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                         alt="">
+                </div>
+            @endforeach
             <!-- Item 2 -->
-            <div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item="active">
+            {{--<div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item="active">
                 <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
                      class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
-            </div>
+            </div>--}}
         </div>
         <div class="flex justify-center items-center pt-4">
             <button type="button"
