@@ -32,10 +32,12 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'role' => ['required'],
+            'picture' => ['required'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        $imagePath = $request->file('picture')->store('/profiles/profiles', 'public');
+        $imagePath = $request->file('picture')->store('profiles/profiles', 'public');
         $user = User::create([
             'name' => $request->name,
             'picture' => $imagePath,
@@ -43,10 +45,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->assignRole($request->role);
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if ($request->role === 'user')
+            return redirect(RouteServiceProvider::HOME);
+        else
+            return redirect(RouteServiceProvider::DASHBOARD);
     }
 }
