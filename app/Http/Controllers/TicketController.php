@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Ticket;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -11,22 +13,6 @@ class TicketController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
     {
         //
     }
@@ -61,5 +47,18 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    function downloadTicket(Request $request)
+    {
+        $ticket = Ticket::find($request->ticketId);
+        $event = Event::find($ticket->event_id);
+
+        $pdf = Pdf::loadView('components.ticket', [
+            'qr' => $ticket->qr_code,
+            'ticket' => $ticket,
+            'event' => $event
+        ]);
+        return $pdf->download('Evento_ticket.pdf');
     }
 }
