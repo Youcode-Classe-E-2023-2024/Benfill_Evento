@@ -73,7 +73,7 @@
                             <div class="flex items-center">
                                 <div class="relative">
                                     <div class="rounded-full w-6 h-6 md:w-8 md:h-8 bg-gray-200">
-                                        <img src='{{ getPicUrl($event['user']['picture'], 'pictures/profiles') }}'
+                                        <img src='{{ getPicUrl($event['user']['picture'], '') }}'
                                              alt=""
                                              class="rounded-full w-full h-full md:w-8 md:h-8">
                                     </div>
