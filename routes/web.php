@@ -8,6 +8,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,18 +25,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/events/{slug}', [EventController::class, 'show']);
 Route::get('/events/search/{input}', [EventController::class, 'search']);
-Route::post('/categories/filter', [CategoryController::class,'filterByCategoryAjax']);
+Route::post('/categories/filter', [CategoryController::class, 'filterByCategoryAjax']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('verified')
+        ->name('dashboard')
+        ->can('view-dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/events/status/{id}', [EventController::class, 'changeStatus'])->name('events.status');
-    Route::resource('events', EventController::class)->except(['show']);;
-    Route::resource('reservations', ReservationController::class);
+    Route::resource('events', EventController::class)->except(['show']);
+    Route::get('reservations/create/{slug}', [ReservationController::class, 'create'])->name('reserve');
+    Route::post('reservations/store', [ReservationController::class, 'store'])->name('reserve.store');
+    Route::resource('reservations', ReservationController::class)->except(['create', 'store']);
     Route::resource('tickets', TicketController::class);
+
 
 
     // Roles
@@ -56,6 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::post('/ticket/download', [TicketController::class, 'downloadTicket']);
 
 });
 
