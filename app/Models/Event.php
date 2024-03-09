@@ -15,6 +15,7 @@ class Event extends Model
         'picture',
         'location_id',
         'category_id',
+        'reservationCount',
         'places',
         'price',
         'user_id',
