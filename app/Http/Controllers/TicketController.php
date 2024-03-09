@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Spatie\Browsershot\Browsershot;
 
 class TicketController extends Controller
 {
@@ -53,12 +54,12 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($request->ticketId);
         $event = Event::find($ticket->event_id);
-
         $pdf = Pdf::loadView('components.ticket', [
-            'qr' => $ticket->qr_code,
+            'qr' => false,
             'ticket' => $ticket,
             'event' => $event
         ]);
+
         return $pdf->download('Evento_ticket.pdf');
     }
 }
