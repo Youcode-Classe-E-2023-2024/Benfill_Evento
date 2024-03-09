@@ -1,4 +1,4 @@
-<div class="flex flex-wrap md items-center h-screen my-6 border-gray-200 border-b-2">
+<div class="flex flex-wrap md items-center h-screen m-6 pr-6 border-gray-200 border-b-2">
     <div class="bg-white w-full md:w-1/2 h-screen">
         <div class="mx-32">
             <h1 class="text-6xl font-bold mt-16">{{$event['title']}}</h1>
