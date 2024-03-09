@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
 use App\Http\Requests\categoryStore;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -60,5 +62,15 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+    }
+
+    function filterByCategoryAjax(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $events = Event::where('category_id', $request->category_id)
+            ->where('status', 'published')
+            ->with('category', 'user', 'location')
+            ->get();
+
+        return response()->json(['events' => $events]);
     }
 }
