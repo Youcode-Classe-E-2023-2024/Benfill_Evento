@@ -16,6 +16,10 @@ class Reservation extends Model
     ];
 
     function event() {
+        return $this->belongsTo(Event::class);
+    }
+
+    function ticket() {
         return $this->hasMany(Event::class);
     }
 
