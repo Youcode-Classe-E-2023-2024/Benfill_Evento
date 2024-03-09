@@ -28,9 +28,9 @@
                {{$event['description']}}
             </div>
 
-            <button class="bg-green-500 p-6 text-white border-green-700 uppercase mt-5 text-sm font-semibold hover:underline">
+            <a href="{{route('reserve', $event->slug)}}" class="bg-green-500 p-6 text-white border-green-700 uppercase mt-5 text-sm font-semibold hover:underline">
                 buy now!
-            </button>
+            </a>
         </div>
     </div>
     <div class="bg-red-600 w-full md:w-1/2 h-screen">
@@ -40,4 +40,7 @@
             alt=""
         />
     </div>
+</div>
+<div>
+    <h2>Description</h2>
 </div>
