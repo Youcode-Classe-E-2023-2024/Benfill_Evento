@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('date');
             $table->enum('status', ['unconfirmed', 'published', 'sold out']);
             $table->integer('places');
+            $table->integer('reservationCount');
             $table->float('price');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('location_id');
