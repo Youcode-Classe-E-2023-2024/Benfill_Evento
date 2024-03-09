@@ -21,10 +21,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // Log a message to trace the execution
+                \Log::info('RedirectIfAuthenticated middleware triggered');
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }
 
         return $next($request);
     }
+
+
 }
