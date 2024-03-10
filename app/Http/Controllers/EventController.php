@@ -16,8 +16,8 @@ class EventController extends Controller
     {
         $categories = Category::all();
         $locations = Location::all();
-        $events = Event::with('category', 'user', 'location')->get();
-        $eventsRequest = Event::where('status', 'unconfirmed')->get();
+        $events = Event::with('category', 'user', 'location')->paginate(5);
+        $eventsRequest = Event::where('status', 'unconfirmed')->paginate(5);
         return view('pages.back_office.events', compact('categories', 'locations', 'events', 'eventsRequest'));
     }
 
@@ -42,7 +42,7 @@ class EventController extends Controller
             'date' => $request['date'],
             'slug' => Str::slug($request['title'], '-')
         ]);
-        return back()->with('status', "success");
+/*        return back()->with('status', "success");*/
     }
 
     function show($slug)
