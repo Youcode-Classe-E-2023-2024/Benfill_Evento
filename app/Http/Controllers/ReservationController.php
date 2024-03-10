@@ -42,8 +42,8 @@ class ReservationController extends Controller
             $ticket->qr_code = QrCode::generate($event->title);
             $ticket->save();
 
-                /*Mail::to()
-                    ->send( );*/
+            Mail::to(Auth::getUser()->email)
+                ->send(new \App\Mail\ticket($ticket->id));
             return view('pages.front_office.thankYouPage', [
                 'status' => 'Congratulations! Your reservation for Evento is confirmed! 🥳 Your e-ticket is ready for download below. Thank you for choosing to be a part of this special event. We look forward to seeing you there!',
                 'qr' => $ticket->qr_code,
