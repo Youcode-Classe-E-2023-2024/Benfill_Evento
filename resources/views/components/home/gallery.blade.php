@@ -1,3 +1,25 @@
+<style>
+    .relative {
+        position: relative;
+    }
+
+    .buy-now-button {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff; /* Change this to your desired text color */
+        padding: 10px 70px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .shadow-md:hover .buy-now-button {
+        opacity: 1;
+    }
+
+</style>
+
 <div
     class="w-full border-gray-200 border-b-4 py-3"
     id="gallerySection"
@@ -11,18 +33,16 @@
         <!-- Carousel wrapper -->
         <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
             @foreach($gallery as $item)
-                <!-- Item 1 -->
-                <div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="{{getPicUrl($item['picture'], '')}}"
-                         class="rounded-lg shadow-md absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                         alt="">
-                </div>
+                <a href="/events/{{$item['slug']}}">
+                    <div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item>
+                        <img src="{{getPicUrl($item['picture'], '')}}"
+                             class="rounded-lg shadow-md absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                             alt="">
+                        <div class="w-1-2 buy-now-button mb-6 hover:bg-blue-900 bg-blue-600">Buy Now</div>
+                    </div>
+                </a>
+
             @endforeach
-            <!-- Item 2 -->
-            {{--<div class="shadow-md hidden duration-700 ease-in-out" data-carousel-item="active">
-                <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-                     class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
-            </div>--}}
         </div>
         <div class="flex justify-center items-center pt-4">
             <button type="button"
