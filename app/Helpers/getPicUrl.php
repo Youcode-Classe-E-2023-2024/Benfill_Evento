@@ -7,20 +7,13 @@ function getPicUrl($fileName, $folder)
 
 function convertTimeFormat($inputTime, $option)
 {
-
     if ($option === 'd') {
-        // Convert input time to Unix timestamp
         $timestamp = strtotime($inputTime);
-
-        // Check if the conversion was successful
         if ($timestamp === false) {
             return "Invalid input time format";
         }
-
-        // Format the timestamp to the desired output format
         $outputFormat = date("l, F j Y", $timestamp);
-
-    } else {
+    } else if ($option === 't') {
         $timestamp = strtotime($inputTime);
         $outputFormat = date("Y-m-d\TH:i", $timestamp);
     }
