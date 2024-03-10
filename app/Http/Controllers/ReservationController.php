@@ -12,6 +12,34 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class ReservationController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole('Organizer')) {
+            $events = Event::where('user_id', $user->id)->get();
+
+            if (count($events) !== 0) {
+                $eventIds = $events->pluck('id')->toArray();
+                $reservations = Reservation::whereIn('event_id', $eventIds)->paginate(5, ['*'], 'reservations');
+                $reservationsRequest = Reservation::whereIn('event_id', $eventIds)
+                    ->where('status', 'unconfirmed')
+                    ->paginate(5, ['*'], 'reservations');
+            } else {
+                $reservations = collect();
+                $reservationsRequest = collect();
+            }
+        } else {
+            $reservations = Reservation::paginate(5, ['*'], 'reservations');
+
+            $reservationsRequest = Reservation::where('status', 'unconfirmed')
+                ->paginate(5, ['*'], 'reservations');
+        }
+
+        return view('pages.back_office.reservations', compact('reservations', 'reservationsRequest'));
+    }
+
+
     function create($slug)
     {
         $event = Event::where('slug', $slug)->get()->first();
@@ -41,6 +69,8 @@ class ReservationController extends Controller
             ]);
             $ticket->qr_code = QrCode::generate($event->title);
             $ticket->save();
+            $event->places--;
+            $event->save();
 
             Mail::to(Auth::getUser()->email)
                 ->send(new \App\Mail\ticket($ticket->id));
@@ -55,5 +85,46 @@ class ReservationController extends Controller
             'status' =>
                 'Thank you for reserving your spot at Evento! Your registration is being processed and validated by our organizers. You will receive an email with your event ticket once the validation is complete. Get ready for an unforgettable experience! 🎉
 ']);
+    }
+
+    function myReservations()
+    {
+        $user = Auth::getUser();
+        $reservations = Reservation::where('user_id', $user->id);
+
+        return view('pages.front_office.myReservations', compact('reservations'));
+    }
+
+    function destroy($id)
+    {
+        $reservation = Reservation::find($id);
+
+        $reservation->status = "canceled";
+        $reservation->save();
+
+        return back();
+    }
+
+    function changeStatus(Request $request, $id)
+    {
+        $reservation = Reservation::find($id);
+        if (isset($request->accept)) {
+            $reservation->update(['status' => "confirmed"]);
+            $ticket = Ticket::create([
+                'event_id' => $request->eventId,
+                'user_id' => Auth::id(),
+                'reservation_id' => $reservation->id
+            ]);
+            $event = Event::find($request->eventId);
+            $ticket->qr_code = QrCode::generate($event->title);
+            $ticket->save();
+            $event->places--;
+            $event->save();
+
+            Mail::to(Auth::getUser()->email);
+        } else {
+            to_route('reservations.destroy', $id);
+        }
+        return back();
     }
 }
