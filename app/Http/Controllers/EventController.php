@@ -96,7 +96,9 @@ class EventController extends Controller
         $events = Event::where('title', 'LIKE', "%{$input}%")->where('status', 'published')
             ->with('category', 'user', 'location')
             ->get();
-
+        foreach ($events as $event) {
+            $event->date = convertTimeFormat($event->date, "d");
+        }
         return response()->json(['events' => $events]);
     }
 }
