@@ -230,7 +230,6 @@
                 <div class="ticket--center--col">
                     <span class="ticket--info--title">Date and time</span>
                     <span class="ticket--info--subtitle">{{convertTimeFormat($event->date, 'd')}}</span>
-                    <span class="ticket--info--content">{{convertTimeFormat($event->date, 't')}}</span>
                 </div>
                 <div class="ticket--center--col">
                     <span class="ticket--info--title">Location</span>
