@@ -54,7 +54,7 @@
                                 </svg>
                                 <span
                                     class="dateSections mt-2 xl:mt-0">
-			  {{ $event->date }}
+			  {{ convertTimeFormat($event->date, "d") }}
 			</span>
                             </p>
                             <p class="inline-flex flex-col xl:flex-row xl:items-center text-gray-800">
@@ -103,5 +103,3 @@
         {{ $events->links() }}
     </div>
 </div>
-
-<script src="{{ url('/js/counter.js') }}"></script>
