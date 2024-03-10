@@ -20,34 +20,18 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show($id)
     {
-        //
+        $ticket = Ticket::where('reservation_id', $id)->get()->first();
+        $event = Event::find($ticket->event_id);
+        return view('pages.front_office.thankYouPage', [
+            'status' => 'Congratulations! Your reservation for Evento is confirmed! 🥳 Your e-ticket is ready for download below. Thank you for choosing to be a part of this special event. We look forward to seeing you there!',
+            'qr' => false,
+            'event' => $event,
+            'ticket' => $ticket
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
 
     function downloadTicket(Request $request)
     {
