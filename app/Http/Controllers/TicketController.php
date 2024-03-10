@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Ticket;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Spatie\Browsershot\Browsershot;
+use Wnx\SidecarBrowsershot\BrowsershotLambda;
 
 class TicketController extends Controller
 {
@@ -54,12 +53,18 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($request->ticketId);
         $event = Event::find($ticket->event_id);
-        $pdf = Pdf::loadView('components.ticket', [
+
+        BrowsershotLambda::url(url("/ticket/download/$request->ticketId"))->save('ticket.pdf');
+    }
+
+    function getTicketPage($id)
+    {
+        $ticket = Ticket::find($id);
+        $event = Event::find($ticket->event_id);
+        return view('ticket', [
             'qr' => false,
             'ticket' => $ticket,
             'event' => $event
         ]);
-
-        return $pdf->download('Evento_ticket.pdf');
     }
 }
