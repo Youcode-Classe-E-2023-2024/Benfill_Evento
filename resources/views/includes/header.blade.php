@@ -53,13 +53,12 @@
                             <span class="block text-sm  text-gray-500 truncate">{{getUser()->email}}</span>
                         </div>
                         <ul class="py-2" aria-labelledby="user-menu-button">
-                            <li>
-                                <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100e">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="/myTickets"
-                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tickets</a>
-                            </li>
+                            @can('view-dashboard')
+                                <li>
+                                    <a href="/dashboard"
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100e">Dashboard</a>
+                                </li>
+                            @endcan
                             <li>
                                 <a href="/myReservations"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</a>
@@ -67,7 +66,7 @@
                             <li>
 
                                 <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                   Settings
+                                    Settings
                                 </a>
                             </li>
                             <li>
