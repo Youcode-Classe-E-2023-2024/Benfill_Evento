@@ -70,7 +70,9 @@ class CategoryController extends Controller
             ->where('status', 'published')
             ->with('category', 'user', 'location')
             ->get();
-
+        foreach ($events as $event) {
+            $event->date = convertTimeFormat($event->date, "d");
+        }
         return response()->json(['events' => $events]);
     }
 }
