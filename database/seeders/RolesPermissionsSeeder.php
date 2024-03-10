@@ -32,7 +32,8 @@ class RolesPermissionsSeeder extends Seeder
         'reservation-delete',
         'favorite-list',
         'favorite-liking',
-        'accept-event'
+        'accept-event',
+        'accept-reservation'
     ];
 
     public function run(): void
@@ -47,8 +48,8 @@ class RolesPermissionsSeeder extends Seeder
 
         Role::findByName('Admin')->givePermissionTo($this->permissions);
         Role::findByName('Organizer')->givePermissionTo([
-            'favorite-list', 'favorite-liking', 'event-create', 'event-update',
-            'event-delete',
+            'favorite-list', 'favorite-liking', 'view-dashboard', 'event-create', 'event-update',
+            'event-delete', 'accept-reservation'
         ]);
     }
 }
