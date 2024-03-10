@@ -61,7 +61,7 @@
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tickets</a>
                             </li>
                             <li>
-                                <a href="/myReservation"
+                                <a href="/myReservations"
                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</a>
                             </li>
                             <li>
