@@ -72,5 +72,10 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+    'lambda' => [
+        'key'    => 'your-aws-access-key',
+        'secret' => 'your-aws-secret-key',
+        'region' => 'us-west-2', // Set your desired AWS region here
+    ],
 
 ];
