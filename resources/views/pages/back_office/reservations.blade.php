@@ -79,7 +79,10 @@
                                              <td class="px-4 py-3 text-sm">{{ $reservation->event->description }}</td>
                                              <td class="px-4 py-3 text-sm">{{ $reservation->event['category']['category'] }}</td>
                                              <td class="px-4 py-3 text-sm">{{ $reservation->event['location']['location'] }}</td>
-                                             <td class="px-4 py-3 text-sm">{{ $reservation->user->name }}</td>
+                                             <td class="px-4 py-3 text-sm flex flex-col">
+                                                 <p class="p-12">{{ $reservation->user->name }}</p>
+                                                 <p class="p-12">{{ $reservation->user->email }}</p>
+                                             </td>
                                              <td class="px-4 py-3 text-sm">{{ $reservation->event->price }}</td>
                                              <td class="px-4 py-3 text-sm">{{ $reservation->event['user']['name'] }}</td>
                                              <td class="px-4 py-3 text-sm">{{ $reservation->status }}</td>
