@@ -89,9 +89,8 @@ class ReservationController extends Controller
 
     function myReservations()
     {
-        $user = Auth::getUser();
-        $reservations = Reservation::where('user_id', $user->id);
-
+        $reservations = Reservation::where('user_id', Auth::id()
+        )->paginate(9);
         return view('pages.front_office.myReservations', compact('reservations'));
     }
 
