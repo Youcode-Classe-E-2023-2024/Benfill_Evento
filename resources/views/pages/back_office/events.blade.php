@@ -242,6 +242,9 @@
                                 @endif
                                 </tbody>
                             </table>
+                            <div class="my-12 flex justify-center">
+                                {{ $events->links() }}
+                            </div>
                         </div>
                     </div>
 
@@ -311,6 +314,9 @@
                                 @endif
                                 </tbody>
                             </table>
+                            <div class="my-12 flex justify-center">
+                                {{ $eventsRequest->links() }}
+                            </div>
                         </div>
                     </div>
                 </div>
