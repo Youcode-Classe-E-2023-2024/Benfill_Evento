@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/events/status/{id}', [EventController::class, 'changeStatus'])->name('reservations.status');
+    Route::post('/events/status/{id}', [EventController::class, 'changeStatus'])->name('events.status');
     Route::resource('events', EventController::class)->except(['show']);
     Route::get('reservations/create/{slug}', [ReservationController::class, 'create'])->name('reserve');
     Route::get('/myReservations', [ReservationController::class, 'myReservations']);
