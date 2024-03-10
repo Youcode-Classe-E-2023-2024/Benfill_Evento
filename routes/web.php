@@ -27,6 +27,8 @@ Route::get('/events/{slug}', [EventController::class, 'show']);
 Route::get('/events/search/{input}', [EventController::class, 'search']);
 Route::post('/categories/filter', [CategoryController::class, 'filterByCategoryAjax']);
 
+Route::get('ticket/download/{id}', [TicketController::class, 'getTicketPage']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
