@@ -5,6 +5,7 @@
         .fontE {
             font-family: "Dancing Script", cursive;
         }
+
         .title {
             font-optical-sizing: auto;
             font-weight: 700;
@@ -111,9 +112,19 @@
                         <p class="text-2xl font-semibold text-gray-900">{{$event->price}} MAD</p>
                     </div>
                 </div>
-                <button type="submit" class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Confirm
-                    Order
-                </button>
+                @if($event->places !== 0)
+                    <button type="submit"
+                            class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Confirm
+                        Order
+                    </button>
+                @else
+                    <h3 class="text-center text-red-500 font-bold">Sold Out</h3>
+                    <button type="button"
+                            class="cursor-not-allowed mt-4 mb-8 w-full rounded-md bg-gray-300 px-6 py-3 font-medium text-white">Confirm
+                        Order
+                    </button>
+                @endif
+
             </div>
         </form>
     </div>
