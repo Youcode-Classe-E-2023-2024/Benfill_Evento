@@ -10,7 +10,13 @@
             <div class="relative mx-auto w-full">
                 <a href="/events/{{$event['slug']}}"
                    class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
-                    <div class="shadow p-4 rounded-lg bg-white">
+                    <div class="shadow p-4 rounded-lg @if($event->places === 0) bg-gray-200 @endif ">
+                        @if($event->places === 0)
+                            <div
+                                class="absolute z-50 top-0 right-0 mt-3 mr-3 inline-flex px-3 py-2 rounded-full bg-gray-600 text-white text-sm font-medium select-none">
+                                Sold Out
+                            </div>
+                        @endif
                         <div class="flex justify-center relative rounded-lg overflow-hidden h-52">
                             <div class="transition-transform duration-500 transform ease-in-out hover:scale-110 w-full">
                                 <div class="absolute inset-0 bg-black">
