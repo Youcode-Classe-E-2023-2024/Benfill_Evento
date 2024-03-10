@@ -144,7 +144,7 @@ $(document).ready(function () {
                         let pic = url + "storage/" + event.picture;
                         let userPic = url + "storage/" + event.user.picture;
                         cardsSection.innerHTML = ` <div class="relative mx-auto w-full">
-                <a href="/events/{{$event['slug']}}"
+                <a href="/events/${event.slug}"
                    class="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full">
                     <div class="shadow p-4 rounded-lg bg-white">
                         <div class="flex justify-center relative rounded-lg overflow-hidden h-52">
