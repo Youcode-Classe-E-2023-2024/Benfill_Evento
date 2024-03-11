@@ -2,6 +2,7 @@
     <h1 class="text-blue-900 font-bold text-[30px]">Unveiling the Magic: Details for the '{{$event->title  }}'
         Experience</h1>
 </div>
+
 <div class="flex flex-wrap md h-screen my-6 pr-6 border-gray-200 border-b-2">
     <div class="bg-white w-full md:w-1/2 h-screen">
         <div class="mx-32 border-2 bg-blueGray-900 flex px-6 flex-col justify-center">
@@ -14,7 +15,7 @@
                 </span>
                 </button>
             </div>
-            @if($event->validation != 'auto')
+            @if($event->validation == 'manuel')
                 <div class="flex w-full justify-center mt-6">
                 <span
                     class="inline-flex items-center m-2 px-3 py-1 bg-yellow-200 hover:bg-yellow-300 rounded-full text-sm font-semibold text-yellow-600">
