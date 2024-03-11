@@ -1,5 +1,7 @@
 # Event Management Platform
 
+![Evento](https://github.com/Youcode-Classe-E-2023-2024/Benfill_Evento/assets/109225791/3dd63499-15f9-4428-9761-aaf0a70fb667)
+
 ## Description
 
 This Laravel-based project serves as an Event Management Platform, enabling users to register, organize, and attend
