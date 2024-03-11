@@ -28,6 +28,10 @@ class EventController extends Controller
 
     function store(Request $request)
     {
+        $request->validate([
+            'date' => 'required|after:now',
+        ]);
+
         $imagePath = $request->file('picture')->store('/events/profiles/', 'public');
         Event::create([
             'title' => $request['title'],
@@ -81,7 +85,8 @@ class EventController extends Controller
         return back();
     }
 
-    function edit($id) {
+    function edit($id)
+    {
         $event = Event::find($id);
         return response()->json(['event' => $event]);
     }

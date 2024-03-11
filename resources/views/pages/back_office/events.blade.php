@@ -83,6 +83,8 @@
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                <x-input-error :messages="$errors->get('date')" class="mt-2"/>
+
                                 @if (isset($events))
                                     @foreach ($events as $event)
                                         <tr
