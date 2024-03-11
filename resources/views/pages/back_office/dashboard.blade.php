@@ -12,7 +12,38 @@
         <x-dashboard.sidebardash/>
 
         <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
-            <x-dashboard.statisticscards/>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+                <div
+                    class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                    <div class="text-right">
+                        <p class="text-2xl">{{count($users)}}</p>
+                        <p>Users</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                    <div class="text-right">
+                        <p class="text-2xl">{{count($events)}}</p>
+                        <p>Events</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                    <div class="text-right">
+                        <p class="text-2xl">{{count($categories)}}</p>
+                        <p>Categories</p>
+                    </div>
+                </div>
+                <div
+                    class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                    <div class="text-right">
+                        <p class="text-2xl">{{count($reservations)}}</p>
+                        <p>Reservations</p>
+                    </div>
+                </div>
+            </div>
+
             <div style="display: flex; justify-content: space-between;">
                 <div style="width: 45%;">
                     <canvas id="eventsByCategoryChart" width="400" height="400"></canvas>
@@ -86,88 +117,90 @@
                 });
             </script>
             <!-- Client Table -->
-            <div class="mt-4 mx-4">
-                <h3 class="text-lg font-semibold pb-4">Users</h3>
-                <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                    <div class="w-full overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                            <tr
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">Image</th>
-                                <th class="px-4 py-3">Name</th>
-                                <th class="px-4 py-3">Email</th>
-                                <th class="px-4 py-3">Role</th>
-                                <th class="px-4 py-3">Created date</th>
-                                <th class="px-4 py-3 text-center">Operation</th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            @foreach ($users as $user)
+            @can('role-edit')
+                <div class="mt-4 mx-4">
+                    <h3 class="text-lg font-semibold pb-4">Users</h3>
+                    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
                                 <tr
-                                    class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center text-sm">
-                                            <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                                <img class="object-cover w-full h-full rounded-full"
-                                                     src="{{ asset('storage/'. $user->picture) }}" alt=""
-                                                     loading="lazy"/>
-                                                <div class="absolute inset-0 rounded-full shadow-inner"
-                                                     aria-hidden="true">
+                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3">Image</th>
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Email</th>
+                                    <th class="px-4 py-3">Role</th>
+                                    <th class="px-4 py-3">Created date</th>
+                                    <th class="px-4 py-3 text-center">Operation</th>
+                                </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                @foreach ($users as $user)
+                                    <tr
+                                        class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center text-sm">
+                                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                                    <img class="object-cover w-full h-full rounded-full"
+                                                         src="{{ asset('storage/'. $user->picture) }}" alt=""
+                                                         loading="lazy"/>
+                                                    <div class="absolute inset-0 rounded-full shadow-inner"
+                                                         aria-hidden="true">
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">{{ $user->name }}</td>
-                                    <td class="px-4 py-3 text-sm">{{ $user->email }}</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        @if(Auth::user()->can('update-user-role'))
-                                            <form action="/update_user_role/{{$user->id}}" method="post">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="flex items-center space-x-2">
-                                                    <select name="updated_role"
-                                                            class="p-1 border border-gray-300 rounded-sm text-sm">
-                                                        @foreach($roles as $role)
-                                                            <option
-                                                                value="{{ $role->name }}" {{ $user->getRoleNames()->first() === $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
-                                                        @endforeach
-                                                    </select>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">{{ $user->name }}</td>
+                                        <td class="px-4 py-3 text-sm">{{ $user->email }}</td>
+                                        <td class="px-4 py-3 text-sm">
+                                            @if(Auth::user()->can('update-user-role'))
+                                                <form action="/update_user_role/{{$user->id}}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="flex items-center space-x-2">
+                                                        <select name="updated_role"
+                                                                class="p-1 border border-gray-300 rounded-sm text-sm">
+                                                            @foreach($roles as $role)
+                                                                <option
+                                                                    value="{{ $role->name }}" {{ $user->getRoleNames()->first() === $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <button type="submit"
+                                                                class="px-2 py-1 bg-blue-500 text-white rounded-sm text-sm">
+                                                            Save
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            @else
+                                                {{ $user->getRoleNames()->first() }}
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">{{ $user->created_at->format('d-m-Y') }}</td>
+                                        <td class="px-4 py-3 text-xs text-center">
+                                            @if(Auth::user()->can('delete-user'))
+                                                <form action="/delete_user/{{$user->id}}" method="POST"
+                                                      onsubmit="return confirm('Are you sure?');">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit"
-                                                            class="px-2 py-1 bg-blue-500 text-white rounded-sm text-sm">
-                                                        Save
+                                                            class=" bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
+                                                        Delete User
                                                     </button>
-                                                </div>
-                                            </form>
-                                        @else
-                                            {{ $user->getRoleNames()->first() }}
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">{{ $user->created_at->format('d-m-Y') }}</td>
-                                    <td class="px-4 py-3 text-xs text-center">
-                                        @if(Auth::user()->can('delete-user'))
-                                            <form action="/delete_user/{{$user->id}}" method="POST"
-                                                  onsubmit="return confirm('Are you sure?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                        class=" bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded">
-                                                    Delete User
-                                                </button>
-                                            </form>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                                </form>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        </li>
+                        </ul>
+                        </nav>
+                        </span>
                     </div>
-                    </li>
-                    </ul>
-                    </nav>
-                    </span>
                 </div>
-            </div>
+            @endcan
         </div>
 
     </div>
