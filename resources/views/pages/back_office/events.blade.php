@@ -74,6 +74,7 @@
                                     <th class="px-4 py-3">Price</th>
                                     <th class="px-4 py-3">Organizer</th>
                                     <th class="px-4 py-3">Status</th>
+                                    <th class="px-4 py-3">Validation</th>
                                     <th class="px-4 py-3">Date</th>
                                     <th class="px-4 py-3">Created date</th>
                                     <th class="px-4 py-3 text-center">Operation</th>
@@ -92,6 +93,7 @@
                                             <td class="px-4 py-3 text-sm">{{ $event->price }}</td>
                                             <td class="px-4 py-3 text-sm">{{ $event['user']['name'] }}</td>
                                             <td class="px-4 py-3 text-sm">{{ $event->status }}</td>
+                                            <td class="px-4 py-3 text-sm">{{ $event->validation }}</td>
                                             <td class="px-4 py-3 text-sm">{{ $event->date }}</td>
                                             <td class="px-4 py-3 text-sm">
                                                 {{ $event->created_at->format('d-m-Y') }}</td>
