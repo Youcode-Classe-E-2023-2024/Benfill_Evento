@@ -42,7 +42,7 @@ class EventController extends Controller
             'date' => $request['date'],
             'slug' => Str::slug($request['title'], '-')
         ]);
-/*        return back()->with('status', "success");*/
+        return back()->with('status', "success");
     }
 
     function show($slug)
