@@ -1,5 +1,6 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="{{ url('/css/dashboard.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
 
 <div x-data="setup()" :class="{ 'dark': isDark }">
@@ -12,6 +13,78 @@
 
         <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
             <x-dashboard.statisticscards/>
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 45%;">
+                    <canvas id="eventsByCategoryChart" width="400" height="400"></canvas>
+                </div>
+                <div style="width: 45%;">
+                    <canvas id="eventsByAcceptationMethodChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            <script>
+                // Chart for Number of Events per Category
+                var categories = {!! json_encode($categories->pluck('name')) !!};
+                var eventsCount = {!! json_encode($categories->pluck('events_count')) !!};
+
+                var ctx1 = document.getElementById('eventsByCategoryChart').getContext('2d');
+                var eventsByCategoryChart = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: [{
+                            label: 'Number of Events',
+                            data: eventsCount,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                // Chart for Percentage of Events by Acceptation Method
+                var acceptationMethods = {!! json_encode($users->pluck('acceptation_method')) !!};
+                var acceptationMethodCounts = {!! json_encode($users->pluck('count')) !!};
+
+                var ctx2 = document.getElementById('eventsByAcceptationMethodChart').getContext('2d');
+                var eventsByAcceptationMethodChart = new Chart(ctx2, {
+                    type: 'pie',
+                    data: {
+                        labels: acceptationMethods,
+                        datasets: [{
+                            label: 'Percentage of Events',
+                            data: acceptationMethodCounts,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            </script>
             <!-- Client Table -->
             <div class="mt-4 mx-4">
                 <h3 class="text-lg font-semibold pb-4">Users</h3>

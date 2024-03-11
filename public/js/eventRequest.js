@@ -17,3 +17,26 @@ eventListBtn.addEventListener('click', () => {
     eventListBtn.classList.add('hidden')
     eventListSection.classList.remove('hidden')
 })
+
+console.log('test')
+$(document).ready(function () {
+    $('#cancelBtn').on('click', function () {
+        $('#updateForm').addClass('hidden');
+    });
+    $('.updateBtn').on('click', function () {
+        document.querySelector('#updateForm').classList.remove('hidden');
+        $.ajax({
+            url: '/events/edit/' + $(this).data('event-id'),
+            type: 'get',
+            success: (data) => {
+                console.log(data)
+                let event = data.event;
+
+                $('#title').val(event.title);
+                $('#eventId').val(event.id);
+                $('#description').val(event.description);
+                $('#places').val(event.places);
+            }
+        })
+    });
+});

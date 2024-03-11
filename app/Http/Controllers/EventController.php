@@ -56,21 +56,18 @@ class EventController extends Controller
         ]);
     }
 
-    function update(Request $request, $id)
+    function update(Request $request)
     {
-        $event = Event::find($id);
+        $event = Event::find($request->eventId);
         $event->update([
             'title' => $request['title'],
             'description' => $request['description'],
-            'validation' => $request['Validation'],
-            'picture' => $request['picture'],
-            'event_location' => $request['location'],
-            'category_id' => $request['category'],
             'places' => $request['places'],
             'price' => $request['price'],
-            'organizer' => $request['organizer'],
             'date' => $request['date'],
+            'status' => 'unconfirmed'
         ]);
+        return back();
     }
 
     function changeStatus(Request $request, $id)
@@ -82,6 +79,11 @@ class EventController extends Controller
             $event->update(['status' => "published"]);
         }
         return back();
+    }
+
+    function edit($id) {
+        $event = Event::find($id);
+        return response()->json(['event' => $event]);
     }
 
     function destroy($id)

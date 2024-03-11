@@ -116,13 +116,27 @@ const loaderHtml = `  <div class="relative p-4 w-full bg-white rounded-lg overfl
 homeBtn.addEventListener('click', () => {
     gallerySection.classList.remove('hidden');
     emptySection.classList.add('hidden')
+    homeBtn.classList.remove('text-gray-700')
+    homeBtn.classList.add('text-blue-500')
     cardsSection.innerHTML = homeCards;
 })
-
 $(document).ready(function () {
+        let currentCat = $('.categorySelect');
     $('.categorySelect').on('click', function () {
-        emptySection.classList.add('hidden')
+        homeBtn.classList.remove('text-blue-500');
+        homeBtn.classList.add('text-gray-700');
+
+        if (currentCat) {
+            currentCat.removeClass('text-blue-500');
+        }
+
+        emptySection.classList.add('hidden');
         gallerySection.classList.add('hidden');
+
+        $('.categorySelect').removeClass('text-blue-500'); // Remove the class from all elements
+        $(this).addClass('text-blue-500'); // Add the class to the clicked element
+
+        currentCat = $(this);
         let categoryId = $(this).data('category-id');
         $.ajax({
             type: 'POST', url: '/categories/filter',

@@ -1,5 +1,8 @@
 <div class="px-10">
-    <div id="emptySection" class="my-6 hidden flex justify-center w-full text-center">
+    <div id="emptySection" class="font-bold flex-col my-6 hidden flex items-center justify-center w-full text-center">
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
+                <h1 class="self-center text-2xl text-blue-500 font-semibold whitespace-nowrap logo">Evento</h1>
+            </a>
         <p class="text-center">No Results... See More!
         </p>
     </div>
