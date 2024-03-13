@@ -1,6 +1,8 @@
 # Event Management Platform
 
 ![Evento](https://github.com/Youcode-Classe-E-2023-2024/Benfill_Evento/assets/109225791/3dd63499-15f9-4428-9761-aaf0a70fb667)
+![Evento (1)](https://github.com/Youcode-Classe-E-2023-2024/Benfill_Evento/assets/109225791/db075742-5c92-4a73-92a9-51b467553219)
+![Evento (2)](https://github.com/Youcode-Classe-E-2023-2024/Benfill_Evento/assets/109225791/82b1503f-c3a1-49cc-9765-987e3ca04de3)
 
 ## Description
 
